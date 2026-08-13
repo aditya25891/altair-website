@@ -14,6 +14,19 @@
   <link rel="icon" type="image/png" href="images/Altair_Symbol_SpaceBlue.png" />
   <link rel="apple-touch-icon" href="images/Altair_Symbol_SpaceBlue.png" />
 
+  <script>
+    // Netlify Identity invite/recovery/confirmation links point to the site
+    // root by default, but the actual login widget only lives on /admin/.
+    // If one of those tokens lands here instead, forward it there so the
+    // reset/invite flow still works correctly.
+    (function () {
+      var hash = window.location.hash;
+      if (hash && /^#(confirmation_token|invite_token|recovery_token|email_change_token)=/.test(hash)) {
+        window.location.replace('/admin/' + hash);
+      }
+    })();
+  </script>
+
   <style>
     /* Inline diamond / gem SVG illustrations */
     .gem-art { 
