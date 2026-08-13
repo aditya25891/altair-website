@@ -1,0 +1,1852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Altair Fine Jewellery — Made for You, Made to Last</title>
+  <meta name="description" content="Altair Fine Jewellery. Exceptional diamonds, individually crafted into fine jewellery. Atelier (natural) and Studio (lab-grown) collections from Mumbai." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet" /></noscript>
+  <link rel="stylesheet" href="css/main.css" />
+
+  <link rel="icon" type="image/png" href="images/Altair_Symbol_SpaceBlue.png" />
+  <link rel="apple-touch-icon" href="images/Altair_Symbol_SpaceBlue.png" />
+
+  <style>
+    /* Inline diamond / gem SVG illustrations */
+    .gem-art { 
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .collection-card-bg { overflow: hidden; }
+    .collection-card-bg svg { width: 100%; height: 100%; }
+
+    /* Collection visual backgrounds */
+    .bg-umbra { background: radial-gradient(ellipse at 40% 40%, rgba(21,81,132,0.25) 0%, rgba(2,27,64,0.8) 60%); }
+    .bg-lumiere { background: radial-gradient(ellipse at 60% 50%, rgba(112,142,200,0.18) 0%, rgba(2,27,64,0.8) 60%); }
+    .bg-calyx { background: radial-gradient(ellipse at 50% 30%, rgba(247,210,99,0.1) 0%, rgba(2,27,64,0.9) 60%); }
+    .bg-constellation { background: radial-gradient(ellipse at 45% 55%, rgba(21,81,132,0.2) 0%, rgba(2,27,64,0.85) 65%); }
+
+    /* Geometric diamond SVG shapes in cards */
+    .card-gem {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -55%);
+      opacity: 0.18;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .collection-card:hover .card-gem {
+      opacity: 0.28;
+      transform: translate(-50%, -57%);
+    }
+
+    /* About / bespoke image placeholders */
+    .placeholder-art {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(21,81,132,0.06);
+    }
+
+    /* Instagram lightbox */
+    .ig-lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(2,27,64,0.95);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+    .ig-lightbox.open { display: flex; }
+    .ig-lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      border: 1px solid rgba(98,99,99,0.3);
+    }
+    .ig-lightbox-close {
+      position: absolute;
+      top: 24px;
+      right: 32px;
+      color: rgba(255,252,252,0.8);
+      font-size: 32px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      line-height: 1;
+    }
+    .ig-strip {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 1px;
+      background: rgba(98,99,99,0.15);
+      margin-top: 48px;
+    }
+
+    .ig-cell {
+      aspect-ratio: 1;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      background: rgba(21,81,132,0.08);
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .ig-cell svg { opacity: 0.12; transition: opacity 0.4s; }
+    .ig-cell:hover svg { opacity: 0.22; }
+
+    .ig-overlay {
+      position: absolute; inset: 0;
+      background: rgba(2,27,64,0.7);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .ig-cell:hover .ig-overlay { opacity: 1; }
+
+    .ig-overlay span {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,252,252,0.7);
+    }
+
+    /* Education cuts grid */
+    .cuts-showcase {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(98,99,99,0.15);
+      margin: 28px 0;
+    }
+
+    .cut-item {
+      background: #021b40;
+      padding: 28px 16px 24px;
+      text-align: center;
+    }
+
+    .cut-gem {
+      margin: 0 auto 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 96px;
+      width: 100%;
+    }
+
+    .cut-gem svg { overflow: visible; }
+
+    /* Wireframe cut images: invert black-on-white line art to soft-platinum line art on the dark card */
+    .cut-gem img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: invert(1) brightness(0.9);
+      mix-blend-mode: screen;
+      opacity: 0.88;
+      transition: opacity 0.4s ease, transform 0.5s ease;
+    }
+    .cut-item:hover .cut-gem img {
+      opacity: 1;
+      transform: scale(1.04);
+    }
+
+    .cut-name {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,252,252,0.82);
+      font-weight: 500;
+    }
+
+    @media (max-width: 900px) {
+      .ig-strip { grid-template-columns: repeat(3, 1fr); }
+      .cuts-showcase { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .ig-strip { grid-template-columns: repeat(2, 1fr); }
+      .cuts-showcase { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════
+     NAVIGATION
+════════════════════════════════════ -->
+<nav id="main-nav">
+  <div class="nav-inner">
+
+    <div class="nav-row-logo">
+      <a class="nav-logo" href="#" data-page-link="home">ALTAIR</a>
+    </div>
+
+    <div class="nav-divider">
+      <span class="nav-divider-line"></span>
+      <span class="nav-divider-ornament">
+        <img src="images/altair-symbol.png" alt="" width="16" height="20" />
+      </span>
+      <span class="nav-divider-line"></span>
+    </div>
+
+    <div class="nav-row-links">
+      <ul class="nav-links">
+        <li><a href="#" data-page="home">Home</a></li>
+        <li><a href="#" data-page="collections">Creations</a></li>
+        <li><a href="#" data-page="about">Our Story</a></li>
+        <li><a href="#" data-page="bespoke">Atelier</a></li>
+        <li><a href="#" data-page="education">The Guide</a></li>
+        <li><a href="#" data-page="contact" class="nav-cta">Enquire</a></li>
+      </ul>
+
+      <button class="nav-burger" id="nav-burger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div class="nav-mobile-menu" id="mobile-menu">
+  <a href="#" data-page="home">Home</a>
+  <a href="#" data-page="collections">Creations</a>
+  <a href="#" data-page="about">Our Story</a>
+  <a href="#" data-page="bespoke">Atelier</a>
+  <a href="#" data-page="education">The Guide</a>
+  <a href="#" data-page="contact" class="nav-mobile-cta">Enquire</a>
+</div>
+
+
+<!-- ════════════════════════════════════
+     PAGE: HOME
+════════════════════════════════════ -->
+<div id="page-home" class="page">
+
+  <!-- Hero -->
+  <section class="hero hero-static">
+    <!-- Three static images, side by side -->
+    <div class="hero-static-grid">
+      <div class="hero-static-img"><img src="images/hero-pink-trilliant.png" alt="Altair Fine Jewels — Pink Trilliant Ring" /></div>
+      <div class="hero-static-img"><img src="images/hero-emerald-styled.png" alt="Altair Fine Jewels — Emerald Necklace, Earrings & Bracelet" /></div>
+      <div class="hero-static-img"><img src="images/hero-emerald-earrings.png" alt="Altair Fine Jewels — Emerald Flower Earrings" /></div>
+      <div class="hero-static-img"><img src="images/hero-cygnus-earrings.png" alt="Altair Fine Jewels — Cygnus Heart and Pear Removable Earrings" /></div>
+    </div>
+
+    <!-- Dark gradient — heavier at bottom so wordmark reads clearly -->
+    <div class="hero-veil"></div>
+
+    <!-- Star field floats above photos -->
+    <div class="star-field"></div>
+
+    <!-- Content: bottom-left, Option C -->
+    <div class="hero-content">
+      <p class="hero-tagline">Made for you, made to last.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn-primary" data-page-link="collections">Discover Our Creations</a>
+        <a href="#" class="btn-outline" data-page-link="bespoke">Bespoke Atelier</a>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- Collections teaser -->
+  <section class="hero-overlap-section" style="padding-bottom:56px;padding-top:32px;">
+    <div class="max-w">
+      <div class="section-header fade-up" style="max-width:600px;text-align:center;">
+        <p class="subtitle">Creations</p>
+        <div class="divider"></div>
+        <h2 class="section-title">Not Reserved for the Safe.</h2>
+      </div>
+    </div>
+
+    <div class="fade-up" style="border:1px solid rgba(98,99,99,0.2);position:relative;overflow:hidden;max-width:1680px;margin:0 auto;">
+        <div class="home-preview-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:rgba(98,99,99,0.15);">
+          <div style="aspect-ratio:3/4;overflow:hidden;position:relative;">
+            <img src="images/M_PENDANT.png" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center 60%;transition:transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />
+          </div>
+          <div style="aspect-ratio:3/4;overflow:hidden;position:relative;">
+            <img src="images/Yellow-White_Pear_Ring_on_Hand.png" alt="" style="width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />
+          </div>
+          <div style="aspect-ratio:3/4;overflow:hidden;position:relative;">
+            <img src="images/Green_Flower_Earrings_Staged_4-5.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />
+          </div>
+        </div>
+        <div style="padding:32px 40px 36px;text-align:center;background:var(--space-blue);position:relative;">
+          <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 100% at 50% 0%, rgba(21,81,132,0.08) 0%, transparent 70%);pointer-events:none;"></div>
+          <a href="#" class="btn-primary" data-page-link="collections" style="position:relative;">View Our Creations</a>
+        </div>
+    </div>
+  </section>
+
+  <div class="divider-full"></div>
+
+  <!-- About teaser -->
+  <section style="padding-top:32px;">
+    <div class="max-w">
+      <div class="feature-row fade-up">
+        <div class="feature-visual" style="overflow:hidden;">
+          <img src="images/DM_Rosecut_Earrings.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;" />
+        </div>
+
+        <div>
+          <p class="subtitle fade-up">Our Story</p>
+          <div class="divider" style="margin:16px 0 24px;"></div>
+          <h2 class="section-title fade-up">Rooted in the diamond trade. Shaped by design.</h2>
+          <p class="fade-up" style="margin:28px 0;">Altair started with a simple belief: that buying fine jewellery should feel like a collaboration, not a transaction. Eight decades of heritage in the diamond trade shaped how we think about stones. That expertise goes directly into every piece we create.</p>
+          <a href="#" class="btn-text fade-up" data-page-link="about">Read our story</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider-full"></div>
+
+  <!-- Stats -->
+  <section style="padding:0;">
+    <div class="max-w">
+      <div class="stat-strip fade-up">
+        <div class="stat-item">
+          <span class="stat-number">80+</span>
+          <span class="stat-label">Years in the Diamond Trade</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">GIA+IGI</span>
+          <span class="stat-label">Certified Stones</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number stat-number-wide">Natural &amp; Lab-Grown</span>
+          <span class="stat-label">Diamonds</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider-full"></div>
+
+  <!-- Atelier teaser -->
+  <section>
+    <div class="max-w">
+      <div class="feature-row reverse fade-up">
+        <div>
+          <p class="subtitle">Bespoke Atelier</p>
+          <div class="divider" style="margin:16px 0 24px;"></div>
+          <h2 class="section-title">Designed Around You.</h2>
+          <p style="margin:28px 0;">The Altair Atelier begins with a conversation. Your choice of stone, your vision, your moment. We guide you through the entire process from selecting a diamond to approving the final setting, with complete transparency on material and craftsmanship costs.</p>
+          <a href="#" class="btn-primary btn-enquire" data-page-link="bespoke">Begin Your Commission</a>
+        </div>
+        <div class="feature-visual" style="overflow:hidden;">
+          <img src="images/Yellow_Pear_Ring_staged.png" alt="" style="width:100%;height:100%;object-fit:cover;" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Instagram strip -->
+  <section style="padding-top:0;">
+    <div class="max-w">
+      <div class="fade-up" style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:24px;">
+        <div>
+          <p class="subtitle" style="margin-bottom:4px;">Instagram</p>
+          <p style="font-size:13px;color:rgba(255,252,252,0.6);">@altair.jewels</p>
+        </div>
+        <a href="https://www.instagram.com/altair.jewels" target="_blank" rel="noopener" class="btn-text" style="font-size:10px;">Follow on Instagram</a>
+      </div>
+      <div class="ig-strip fade-up" id="ig-strip">
+        <div class="ig-cell" onclick="openLightbox(this.querySelector('img').src)"><img src="images/DM_Rosecut_Earrings.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;" /><div class="ig-overlay"><span>View</span></div></div>
+        <div class="ig-cell" onclick="openLightbox(this.querySelector('img').src)"><img src="images/FLOWER_RING_STAGED.png" alt="" style="width:100%;height:100%;object-fit:cover;" /><div class="ig-overlay"><span>View</span></div></div>
+        <div class="ig-cell" onclick="openLightbox(this.querySelector('img').src)"><img src="images/Yellow-White_Pear_Ring_on_Hand.png" alt="" style="width:100%;height:100%;object-fit:cover;" /><div class="ig-overlay"><span>View</span></div></div>
+        <div class="ig-cell" onclick="openLightbox(this.querySelector('img').src)"><img src="images/Green_Flower_Earrings_Staged_4-5.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;" /><div class="ig-overlay"><span>View</span></div></div>
+        <div class="ig-cell" onclick="openLightbox(this.querySelector('img').src)"><img src="images/Heart_Cushion_Oval_Pendant_Staged.png" alt="" style="width:100%;height:100%;object-fit:cover;" /><div class="ig-overlay"><span>View</span></div></div>
+        <div class="ig-cell" onclick="openLightbox(this.querySelector('img').src)"><img src="images/ECLIPSE_RING_CLAUDE.png" alt="" style="width:100%;height:100%;object-fit:cover;" /><div class="ig-overlay"><span>View</span></div></div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page-home -->
+
+<!-- Instagram Lightbox -->
+<div class="ig-lightbox" id="ig-lightbox" onclick="closeLightbox()">
+  <button class="ig-lightbox-close" onclick="closeLightbox()">×</button>
+  <img id="ig-lightbox-img" src="" alt="" onclick="event.stopPropagation()" />
+</div>
+
+<script>
+function openLightbox(src) {
+  document.getElementById('ig-lightbox-img').src = src;
+  document.getElementById('ig-lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('ig-lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeLightbox();
+});
+</script>
+
+
+<!-- ════════════════════════════════════
+     PAGE: COLLECTIONS / LOOKBOOK
+════════════════════════════════════ -->
+<div id="page-collections" class="page">
+
+  <style>
+    /* ── Lookbook layout ── */
+    .lb-hero {
+      min-height: 92vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+    .lb-hero-img {
+      position: relative;
+      overflow: hidden;
+    }
+    .lb-hero-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.8s ease;
+    }
+    .lb-hero-img:hover img { transform: scale(1.03); }
+
+    .lb-hero-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: calc(var(--nav-height) + 40px) 6vw 80px;
+      background: var(--space-blue);
+      position: relative;
+    }
+    .lb-hero-text::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      bottom: 0;
+      background: radial-gradient(ellipse 80% 60% at 30% 60%, rgba(21,81,132,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Full-bleed single image */
+    .lb-full {
+      position: relative;
+      height: 85vh;
+      overflow: hidden;
+    }
+    .lb-full img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 1s ease;
+    }
+    .lb-full:hover img { transform: scale(1.02); }
+
+    /* Two-column image row */
+    .lb-duo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: rgba(98,99,99,0.15);
+    }
+    .lb-duo.asymmetric { grid-template-columns: 3fr 2fr; }
+    .lb-duo.asymmetric-r { grid-template-columns: 2fr 3fr; }
+
+    .lb-cell {
+      position: relative;
+      overflow: hidden;
+    }
+    .lb-cell img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.7s ease;
+    }
+    .lb-cell:hover img { transform: scale(1.04); }
+    .lb-cell-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 60px 28px 28px;
+      background: linear-gradient(to top, rgba(2,15,36,0.97) 0%, rgba(2,15,36,0.7) 50%, transparent 100%);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .lb-cell:hover .lb-cell-caption {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Three-column grid */
+    .lb-trio {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1px;
+      background: rgba(98,99,99,0.15);
+    }
+
+    /* Caption typography */
+    .lb-piece-name {
+      font-family: 'NymphaTrial', 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(17px, 2vw, 24px);
+      color: #e9e9e9;
+      display: block;
+      margin-bottom: 8px;
+      letter-spacing: 0.06em;
+      text-shadow: 0 1px 8px rgba(2,15,36,0.8);
+    }
+    .lb-piece-desc {
+      font-family: var(--font-sub);
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      color: rgba(255,252,252,0.9);
+      line-height: 1.65;
+      text-shadow: 0 1px 6px rgba(2,15,36,0.9);
+    }
+
+    /* Aspect ratios for cells */
+    .lb-cell.portrait { aspect-ratio: 4/5; }
+    .lb-cell.square { aspect-ratio: 1; }
+    .lb-cell.landscape { aspect-ratio: 5/4; }
+    .lb-cell.tall { aspect-ratio: 3/4; }
+
+    /* Sticky caption on hero */
+    .lb-hero-caption {
+      position: relative;
+      z-index: 2;
+    }
+
+    .lb-full-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 80px 6vw 48px;
+      background: linear-gradient(to top, rgba(2,15,36,0.97) 0%, rgba(2,15,36,0.6) 50%, transparent 100%);
+    }
+
+    /* Enquire link on pieces */
+    .lb-enquire {
+      display: inline-block;
+      margin-top: 16px;
+      font-family: var(--font-sub);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--stellar-lime);
+      border-bottom: 1px solid rgba(247,210,99,0.5);
+      padding-bottom: 2px;
+      transition: border-color 0.3s, color 0.3s;
+      cursor: pointer;
+    }
+    .lb-enquire:hover { border-color: var(--stellar-lime); color: var(--lunar-mist); }
+
+    @media (max-width: 900px) {
+      .lb-hero { grid-template-columns: 1fr; min-height: auto; }
+      .lb-hero-img { height: 65vw; min-height: 300px; }
+      .lb-hero-text { padding: 48px 6vw 64px; }
+      .lb-duo, .lb-duo.asymmetric, .lb-duo.asymmetric-r { grid-template-columns: 1fr; }
+      .lb-trio { grid-template-columns: 1fr 1fr; }
+      .lb-full { height: 75vw; min-height: 280px; }
+      .lb-cell-caption { opacity: 1; transform: none; padding: 32px 20px 20px; }
+      .ig-strip { grid-template-columns: repeat(3, 1fr) !important; }
+      .cuts-showcase { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .lb-trio { grid-template-columns: 1fr; }
+      .lb-full { height: 80vw; }
+      .lb-cell-caption { padding: 28px 16px 16px; }
+      .lb-full-caption { padding: 40px 5vw 28px; }
+      .cuts-showcase { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 380px) {
+      .lb-full { height: 90vw; }
+    }
+  </style>
+
+  <style>
+    /* ── Lookbook Grid v2 ── */
+    .lb-page-hero {
+      min-height: 70vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+    .lb-page-hero-img { position: relative; overflow: hidden; }
+    .lb-page-hero-img img { width:100%;height:100%;object-fit:cover;display:block; }
+    .lb-page-hero-text {
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: calc(var(--nav-height) + 40px) 6vw 72px;
+      background: var(--space-blue); position: relative;
+    }
+
+    /* Grid */
+    .lb2-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: rgba(98,99,99,0.15);
+      padding: 2px;
+    }
+    .lb2-card {
+      position: relative;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      cursor: pointer;
+      background: #08101e;
+    }
+    .lb2-card img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease, opacity 0.3s ease;
+    }
+    .lb2-card:hover img { transform: scale(1.04); opacity: 0.85; }
+    .lb2-card.active img { opacity: 0.7; }
+    .lb2-card.active { outline: 1.5px solid rgba(233,233,233,0.4); outline-offset: -1.5px; }
+    .lb2-card-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 48px 16px 16px;
+      background: linear-gradient(to top, rgba(2,15,36,0.95) 0%, transparent 100%);
+      pointer-events: none;
+    }
+    .lb2-card-name {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(13px,1.2vw,17px);
+      color: rgba(233,233,233,0.92);
+      letter-spacing: 0.06em;
+      display: block;
+    }
+    .lb2-card-type {
+      font-family: var(--font-sub);
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(168,192,232,0.7);
+      display: block;
+      margin-top: 3px;
+    }
+
+    /* Expanded panel */
+    .lb2-panel {
+      display: none;
+      background: #040f22;
+      border-top: 1px solid rgba(98,99,99,0.2);
+      border-bottom: 1px solid rgba(98,99,99,0.2);
+    }
+    .lb2-panel.open { display: grid; grid-template-columns: 1fr 1fr; }
+    .lb2-panel-imgs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: rgba(98,99,99,0.12);
+      padding: 2px;
+    }
+    .lb2-panel-img {
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      background: #08101e;
+      cursor: pointer;
+    }
+    .lb2-panel-img img {
+      width:100%;height:100%;object-fit:cover;display:block;
+      transition: opacity 0.25s;
+    }
+    .lb2-panel-img:hover img { opacity: 0.85; }
+    .lb2-panel-img.active { outline: 1px solid rgba(233,233,233,0.4); outline-offset: -1px; }
+    .lb2-panel-main-img {
+      grid-column: 1 / -1;
+      aspect-ratio: unset;
+      height: 300px;
+    }
+    .lb2-panel-right {
+      padding: 40px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0;
+    }
+    .lb2-panel-eyebrow {
+      font-family: var(--font-sub);
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #a8c0e8;
+      margin-bottom: 14px;
+    }
+    .lb2-panel-name {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(24px, 2.8vw, 40px);
+      background: var(--platinum-gradient);
+      background-size: 100% 1lh;
+      background-repeat: repeat-y;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+      line-height: 1.25;
+      padding-bottom: 0.12em;
+    }
+    .lb2-panel-desc {
+      font-size: 14px;
+      color: rgba(255,252,252,0.6);
+      line-height: 1.8;
+      margin-bottom: 28px;
+      max-width: 380px;
+    }
+    .lb2-specs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px 28px;
+      margin-bottom: 32px;
+      border-top: 1px solid rgba(98,99,99,0.2);
+      padding-top: 24px;
+    }
+    .lb2-spec-label {
+      font-family: var(--font-sub);
+      font-size: 8px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #a8c0e8;
+      margin-bottom: 4px;
+    }
+    .lb2-spec-val {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 15px;
+      color: rgba(255,252,252,0.82);
+    }
+    .lb2-panel-close {
+      position: absolute;
+      top: 16px; right: 20px;
+      font-size: 22px;
+      color: rgba(255,252,252,0.4);
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.2s;
+      z-index: 2;
+    }
+    .lb2-panel-close:hover { color: rgba(255,252,252,0.85); }
+    .lb2-panel-wrap { position: relative; }
+
+    @media (max-width: 900px) {
+      .lb-page-hero { grid-template-columns: 1fr; min-height: auto; }
+      .lb-page-hero-img { height: 100vw; min-height: 340px; background: #000; }
+      .lb-page-hero-img img { object-fit: contain; }
+      .lb-page-hero-text { padding: 40px 6vw 56px; }
+      .lb2-grid { grid-template-columns: repeat(2, 1fr); }
+      .lb2-panel.open { grid-template-columns: 1fr; }
+      .lb2-panel-right { padding: 28px 24px; }
+      .lb2-specs { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .lb2-grid { grid-template-columns: repeat(2, 1fr); }
+      .lb2-panel-imgs { grid-template-columns: 1fr 1fr; }
+      .lb2-panel-right { padding: 24px 20px; }
+    }
+  </style>
+
+  <!-- Hero -->
+  <div class="lb-page-hero fade-up">
+    <div class="lb-page-hero-img">
+      <img src="images/Mahjong_Creative.png" alt="Altair jewellery" loading="lazy" />
+    </div>
+    <div class="lb-page-hero-text">
+      <p class="subtitle" style="margin-bottom:20px;">Altair — Creations</p>
+      <h1 class="display" style="font-size:clamp(36px,5vw,72px);margin-bottom:24px;">Made to Be Worn.</h1>
+      <p style="max-width:400px;margin-bottom:40px;line-height:1.9;color:rgba(255,252,252,0.65);">Wear it today. Not someday.</p>
+      <a href="#" class="btn-outline" data-page-link="bespoke">Commission a piece</a>
+    </div>
+  </div>
+
+  <div class="divider-full"></div>
+
+  <!-- Lookbook grid -->
+  <div style="padding:60px 5vw 0;">
+    <p class="subtitle" style="text-align:center;margin-bottom:48px;letter-spacing:0.22em;">Tap any piece to explore</p>
+  </div>
+
+  <div class="lb2-grid" id="lb2-grid">
+
+    <div class="lb2-card" data-piece="calyx-vega-earrings">
+      <img src="images/lb-calyx-vega-earrings-1.png" alt="Calyx Vega Earrings" loading="lazy" />
+      <div class="lb2-card-label">
+        <span class="lb2-card-name">Calyx Vega Earrings</span>
+        <span class="lb2-card-type">Earrings · Calyx</span>
+      </div>
+    </div>
+
+    <div class="lb2-card" data-piece="umbra-arc">
+      <img src="images/lb-umbra-arc-1.jpg" alt="Umbra Arc" loading="lazy" />
+      <div class="lb2-card-label">
+        <span class="lb2-card-name">Umbra Arc</span>
+        <span class="lb2-card-type">Earrings</span>
+      </div>
+    </div>
+
+    <div class="lb2-card" data-piece="majin">
+      <img src="images/lb-majin-1.png" alt="The Majin Pendant" loading="lazy" style="object-position:center 30%;" />
+      <div class="lb2-card-label">
+        <span class="lb2-card-name">The Majin Pendant</span>
+        <span class="lb2-card-type">Necklace</span>
+      </div>
+    </div>
+
+    <div class="lb2-card" data-piece="eclipse">
+      <img src="images/lb-eclipse-2.png" alt="Eclipse Ring" loading="lazy" style="object-fit:contain;" />
+      <div class="lb2-card-label">
+        <span class="lb2-card-name">Eclipse Ring</span>
+        <span class="lb2-card-type">Ring</span>
+      </div>
+    </div>
+
+    <div class="lb2-card" data-piece="soleil">
+      <img src="images/lb-soleil-1.png" alt="Soleil Ring" loading="lazy" />
+      <div class="lb2-card-label">
+        <span class="lb2-card-name">Soleil Ring</span>
+        <span class="lb2-card-type">Ring</span>
+      </div>
+    </div>
+
+    <div class="lb2-card" data-piece="constellation">
+      <img src="images/lb-constellation-1.png" alt="Constellation Necklace" loading="lazy" />
+      <div class="lb2-card-label">
+        <span class="lb2-card-name">Constellation Necklace</span>
+        <span class="lb2-card-type">Necklace</span>
+      </div>
+    </div>
+
+    <div class="lb2-card" data-piece="selene">
+      <img src="images/lb-selene-1.png" alt="Selene Earrings" loading="lazy" />
+      <div class="lb2-card-label">
+        <span class="lb2-card-name">Selene Earrings</span>
+        <span class="lb2-card-type">Earrings</span>
+      </div>
+    </div>
+
+    <div class="lb2-card" data-piece="scintilla">
+      <img src="images/lb-scintilla-1.png" alt="Scintilla Earrings" loading="lazy" />
+      <div class="lb2-card-label">
+        <span class="lb2-card-name">Scintilla Earrings</span>
+        <span class="lb2-card-type">Earrings</span>
+      </div>
+    </div>
+
+    <div class="lb2-card" data-piece="triad">
+      <img src="images/lb-triad-1.png" alt="The Triad" loading="lazy" />
+      <div class="lb2-card-label">
+        <span class="lb2-card-name">The Triad</span>
+        <span class="lb2-card-type">Pendants</span>
+      </div>
+    </div>
+
+    <div class="lb2-card" data-piece="calyx-vega-ring">
+      <img src="images/lb-calyx-vega-ring-1.png" alt="Calyx Vega Ring" loading="lazy" />
+      <div class="lb2-card-label">
+        <span class="lb2-card-name">Calyx Vega Ring</span>
+        <span class="lb2-card-type">Ring · Calyx</span>
+      </div>
+    </div>
+
+    <div class="lb2-card" data-piece="aria">
+      <img src="images/lb-aria-1.png" alt="Aria Necklace" loading="lazy" style="object-position:center 40%;" />
+      <div class="lb2-card-label">
+        <span class="lb2-card-name">Aria Necklace</span>
+        <span class="lb2-card-type">Necklace</span>
+      </div>
+    </div>
+
+    <div class="lb2-card" data-piece="viridis">
+      <img src="images/lb-viridis-2.jpg" alt="Viridis Earrings" loading="lazy" />
+      <div class="lb2-card-label">
+        <span class="lb2-card-name">Viridis Earrings</span>
+        <span class="lb2-card-type">Earrings</span>
+      </div>
+    </div>
+
+    <div class="lb2-card" data-piece="cygnus">
+      <img src="images/lb-cygnus-1.png" alt="Cygnus Earrings" loading="lazy" />
+      <div class="lb2-card-label">
+        <span class="lb2-card-name">Cygnus Earrings</span>
+        <span class="lb2-card-type">Earrings</span>
+      </div>
+    </div>
+
+    <div class="lb2-card" data-piece="nova-hoops">
+      <img src="images/lb-nova-hoops-1.png" alt="Nova Hoops" loading="lazy" />
+      <div class="lb2-card-label">
+        <span class="lb2-card-name">Nova Hoops</span>
+        <span class="lb2-card-type">Earrings</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Expandable detail panel — injected by JS, sits here -->
+  <div class="lb2-panel-wrap">
+    <div class="lb2-panel" id="lb2-panel">
+      <span class="lb2-panel-close" id="lb2-close">&#x2715;</span>
+      <div class="lb2-panel-imgs" id="lb2-imgs"></div>
+      <div class="lb2-panel-right" id="lb2-right"></div>
+    </div>
+  </div>
+
+  <div class="divider-full" style="margin-top:2px;"></div>
+
+  <!-- Closing CTA -->
+  <div style="padding:100px 5vw;text-align:center;" class="fade-up">
+    <div style="max-width:560px;margin:0 auto;">
+      <p class="subtitle" style="margin-bottom:20px;">Every piece is available to commission</p>
+      <div class="divider"></div>
+      <h2 class="section-title" style="margin:24px 0 20px;">Liked Something You Saw Here?</h2>
+      <p style="margin-bottom:40px;">All pieces in this lookbook can be recreated as exact commissions, adapted to different stones, metals, or sizes, or used as a starting point for something entirely new.</p>
+      <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;">
+        <a href="#" class="btn-primary btn-enquire" data-page-link="contact">Enquire about a piece</a>
+        <a href="#" class="btn-outline" data-page-link="bespoke">Visit the Atelier</a>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-collections -->
+
+
+<div id="page-about" class="page">
+
+  <div class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="max-w" style="position:relative;z-index:2;">
+      <p class="subtitle fade-up">Our Story</p>
+      <div class="divider" style="margin:16px 0 24px;"></div>
+      <h1 class="display fade-up" style="display:inline-block;font-size:clamp(22px,6.5vw,96px);">The Customer First.<br><span style="display:block;text-align:center;">Always.</span></h1>
+    </div>
+  </div>
+
+  <!-- Named After a Star -->
+  <style>
+    .nas-section {
+      position: relative;
+      padding: 90px 6vw 100px;
+      text-align: center;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(98,99,99,0.25);
+    }
+    .nas-stars { position: absolute; inset: 0; }
+    .nas-star-dot { position: absolute; width: 2px; height: 2px; background: #e9e9e9; border-radius: 50%; }
+    .nas-constellation { width: 240px; height: 170px; margin: 0 auto 32px; position: relative; z-index: 2; }
+    .nas-eyebrow { font-family: var(--font-sub); font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #f7d263; margin: 0 0 0; position: relative; z-index: 2; }
+    .nas-title {
+      font-family: var(--font-title);
+      font-size: clamp(34px, 5vw, 60px);
+      line-height: 1.08;
+      background: var(--platinum-gradient);
+      background-size: 100% 1lh;
+      background-repeat: repeat-y;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 22px 0 30px;
+      position: relative;
+      z-index: 2;
+    }
+    .nas-text {
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 15px;
+      line-height: 1.9;
+      color: rgba(255,252,252,0.68);
+      position: relative;
+      z-index: 2;
+    }
+    .nas-text strong {
+      color: rgba(233,233,233,0.92);
+      font-weight: 400;
+      font-family: var(--font-title);
+      font-size: 17px;
+    }
+  </style>
+
+  <div class="nas-section fade-up">
+    <div class="nas-stars" id="nasStarField"></div>
+
+    <p class="nas-eyebrow">The Name</p>
+
+    <svg class="nas-constellation" viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg">
+      <line x1="40" y1="120" x2="80" y2="60" stroke="#708ec8" stroke-width="0.6" opacity="0.5"/>
+      <line x1="80" y1="60" x2="130" y2="40" stroke="#708ec8" stroke-width="0.6" opacity="0.5"/>
+      <line x1="130" y1="40" x2="180" y2="70" stroke="#708ec8" stroke-width="0.6" opacity="0.5"/>
+      <line x1="130" y1="40" x2="150" y2="110" stroke="#708ec8" stroke-width="0.6" opacity="0.5"/>
+      <line x1="80" y1="60" x2="150" y2="110" stroke="#708ec8" stroke-width="0.6" opacity="0.5"/>
+      <circle cx="40" cy="120" r="2" fill="#a8c0e8"/>
+      <circle cx="80" cy="60" r="2.2" fill="#a8c0e8"/>
+      <circle cx="130" cy="40" r="4" fill="#f7d263"/>
+      <circle cx="180" cy="70" r="2" fill="#a8c0e8"/>
+      <circle cx="150" cy="110" r="2" fill="#a8c0e8"/>
+      <circle cx="130" cy="40" r="9" fill="none" stroke="#f7d263" stroke-width="0.5" opacity="0.6">
+        <animate attributeName="r" values="7;11;7" dur="3s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.6;0.15;0.6" dur="3s" repeatCount="indefinite"/>
+      </circle>
+    </svg>
+
+    <h2 class="nas-title">Named After a Star.</h2>
+
+    <p class="nas-text">
+      Altair is the brightest star in the constellation Aquila —
+      <strong>brilliant, singular, and precisely located.</strong>
+      Just as no two constellations are alike, no two Altair creations are ever the same. Each jewel is crafted with precision, elegance, and meaning, tailored to the wearer, designed to shine with a rare and personal brilliance.
+    </p>
+  </div>
+
+  <section>
+    <div class="max-w">
+
+      <!-- Heritage Timeline -->
+      <style>
+        .heritage-timeline {
+          position: relative;
+          max-width: 880px;
+          margin: 0 auto 100px;
+          padding: 8px 0;
+        }
+        .heritage-timeline::before {
+          content: '';
+          position: absolute;
+          top: 0; bottom: 0; left: 50%;
+          width: 1px;
+          background: rgba(98,99,99,0.3);
+          transform: translateX(-50%);
+        }
+        .ht-row {
+          display: grid;
+          grid-template-columns: 1fr 60px 1fr;
+          align-items: start;
+          margin-bottom: 56px;
+        }
+        .ht-row:last-child { margin-bottom: 0; }
+        .ht-marker {
+          display: flex;
+          justify-content: center;
+          padding-top: 4px;
+          position: relative;
+        }
+        .ht-dot {
+          width: 11px; height: 11px;
+          border-radius: 50%;
+          background: var(--space-blue);
+          border: 1.5px solid #a8c0e8;
+          position: relative;
+          z-index: 2;
+        }
+        .ht-year {
+          font-family: var(--font-title);
+          font-size: clamp(20px,2.4vw,28px);
+          background: var(--platinum-gradient);
+          background-size: 100% 1lh;
+          background-repeat: repeat-y;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          margin-bottom: 10px;
+          line-height: 1.1;
+        }
+        .ht-text {
+          font-size: 14px;
+          line-height: 1.85;
+          color: rgba(255,252,252,0.62);
+          max-width: 360px;
+        }
+        .ht-img-box {
+          width: 100%;
+          max-width: 360px;
+          aspect-ratio: 4/3;
+          overflow: hidden;
+          border: 1px solid rgba(168,192,232,0.25);
+        }
+        .ht-row.left .ht-img-box { margin-left: auto; }
+        .kl-portrait { aspect-ratio: 3/4; }
+        .ht-img-box img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+          filter: grayscale(35%) contrast(1.05);
+        }
+        @media (max-width: 700px) {
+          .ht-img-box { display: none; }
+        }
+        .ht-row.left .ht-content { text-align: right; margin-left: auto; }
+        .ht-row.left .ht-text { margin-left: auto; }
+        .ht-row.right { direction: ltr; }
+        .ht-row.right .ht-content { grid-column: 3; }
+        .ht-row.left .ht-content { grid-column: 1; }
+        @media (max-width: 700px) {
+          .heritage-timeline::before { left: 14px; }
+          .ht-row, .ht-row.left, .ht-row.right {
+            grid-template-columns: 30px 1fr;
+            margin-bottom: 44px;
+          }
+          .ht-row .ht-marker { grid-column: 1; justify-content: flex-start; padding-top: 6px; }
+          .ht-row .ht-content,
+          .ht-row.left .ht-content,
+          .ht-row.right .ht-content {
+            grid-column: 2;
+            text-align: left !important;
+            margin-left: 0 !important;
+          }
+          .ht-row.left .ht-text { margin-left: 0; }
+          .ht-text { max-width: 100%; }
+        }
+      </style>
+
+      <div class="fade-up" style="text-align:center;margin-bottom:56px;">
+        <p class="subtitle">Eight Decades in the Diamond Trade</p>
+        <div class="divider"></div>
+      </div>
+
+      <div class="heritage-timeline fade-up">
+
+        <div class="ht-row left">
+          <div class="ht-content">
+            <div class="ht-year">1945</div>
+            <p class="ht-text">Kirtilal Laxmichand Jhaveri starts the family's diamond trading business from a small room in his house in Gamdevi, alongside partners Jormal and Ratilal Jhaveri.</p>
+          </div>
+          <div class="ht-marker"><div class="ht-dot"></div></div>
+          <div class="ht-img-box kl-portrait"><img src="images/heritage-kl-jhaveri.jpg" alt="Kirtilal Laxmichand Jhaveri" style="object-position:center 15%;" /></div>
+        </div>
+
+        <div class="ht-row right">
+          <div class="ht-img-box"><img src="images/heritage-prasad-chambers.jpg" alt="Prasad Chambers, Mumbai" /></div>
+          <div class="ht-marker"><div class="ht-dot"></div></div>
+          <div class="ht-content">
+            <div class="ht-year">Early 1960s</div>
+            <p class="ht-text">The firm moves into office space at Prasad Chambers, marking its transition from a home-run trading operation to an established presence in the trade.</p>
+          </div>
+        </div>
+
+        <div class="ht-row left">
+          <div class="ht-content">
+            <div class="ht-year">1970 – 1985</div>
+            <p class="ht-text">The business expands beyond trading into manufacturing, building the foundation of expertise that would carry through generations.</p>
+          </div>
+          <div class="ht-marker"><div class="ht-dot"></div></div>
+          <div class="ht-img-box"><img src="images/heritage-rough-diamond.jpg" alt="Rough diamonds" /></div>
+        </div>
+
+        <div class="ht-row right">
+          <div class="ht-img-box"><img src="images/heritage-diamond-polishing.jpg" alt="Diamond polishing" /></div>
+          <div class="ht-marker"><div class="ht-dot"></div></div>
+          <div class="ht-content">
+            <div class="ht-year">2013</div>
+            <p class="ht-text">The 4th generation enters the business, training in diamond and jewellery manufacturing in Surat.</p>
+          </div>
+        </div>
+
+        <div class="ht-row left">
+          <div class="ht-content">
+            <div class="ht-year">2015</div>
+            <p class="ht-text">Manufacturing begins independently, alongside buying from major global manufacturers to meet customer demand.</p>
+          </div>
+          <div class="ht-marker"><div class="ht-dot"></div></div>
+          <div class="ht-img-box"><img src="images/heritage-ring-finishing.jpg" alt="Hand-finishing a ring" /></div>
+        </div>
+
+        <div class="ht-row right">
+          <div></div>
+          <div class="ht-marker"><div class="ht-dot"></div></div>
+          <div class="ht-content">
+            <div class="ht-year">2025</div>
+            <p class="ht-text">Altair is founded, bringing eight decades of trade expertise into a single, customer-first jewellery house.</p>
+          </div>
+        </div>
+
+        <div class="ht-row left">
+          <div class="ht-content">
+            <div class="ht-year">2026</div>
+            <p class="ht-text">Altair launches.</p>
+          </div>
+          <div class="ht-marker"><div class="ht-dot"></div></div>
+          <div></div>
+        </div>
+
+      </div>
+
+      <div class="divider-full" style="margin-bottom:80px;"></div>
+
+      <div class="fade-up" style="max-width:680px;margin:0 auto;margin-bottom:100px;">
+        <p class="fade-up" style="margin-bottom:20px;">Altair started with a simple belief: that buying fine jewellery should feel like a collaboration, not a transaction.</p>
+        <p class="fade-up" style="margin-bottom:20px;">Too often, the process is opaque. Stones graded in language designed to confuse, prices that bear no relationship to cost, and pieces that could belong to anyone. We set out to change that.</p>
+        <p class="fade-up">We believe in openness at every step. The stone, the setting, the price. Nothing is obscured. Through enduring relationships with the world's finest manufacturers, we offer jewellery of exceptional quality and craftsmanship. Every stone is hand-selected. Every setting is considered. The result is a jewel built around the person wearing it.</p>
+      </div>
+
+      <div class="divider-full" style="margin-bottom:80px;"></div>
+
+      <div class="feature-row fade-up" style="margin-bottom:100px;">
+        <div class="feature-visual founder-visual" style="overflow:hidden;">
+          <img src="images/founder-aditya-mehta.jpg" alt="Aditya Mehta, Founder of Altair" style="width:100%;height:100%;object-fit:cover;object-position:center 18%;" />
+        </div>
+
+        <div>
+          <p class="subtitle fade-up">Founder's Note</p>
+          <div class="divider" style="margin:16px 0 24px;"></div>
+          <h2 class="section-title fade-up">Why Altair Exists.</h2>
+          <p class="fade-up" style="margin:28px 0 20px;">I joined my family's business straight after NYU and spent the next decade in the B2B side of the diamond industry, getting stones polished and selling them to dealers. I was still one step removed from the people actually wearing them.</p>
+          <p class="fade-up" style="margin-bottom:20px;">The turning point was when a woman came to us wanting to remake her wedding jewellery into an heirloom for her daughter. She'd believed for decades it was 18k gold set with fine white diamonds. When we tested it, it turned out to be gold-plated silver, set with low-quality brown diamonds.</p>
+          <p class="fade-up" style="margin-bottom:28px;">We didn't want that happening to anyone else. That's why Altair exists. You'll get exactly what we've promised, or better. Never anything less.</p>
+          <p class="fade-up" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:18px;letter-spacing:0.02em;color:rgba(255,252,252,0.85);">— Aditya Mehta, Founder</p>
+        </div>
+      </div>
+
+      <div class="divider-full" style="margin-bottom:80px;"></div>
+
+      <div class="fade-up">
+        <div style="text-align:center;margin-bottom:56px;">
+          <p class="subtitle">Natural &amp; Lab-Grown</p>
+          <div class="divider"></div>
+          <h2 class="section-title" style="margin-top:20px;">Both Exceptional.</h2>
+        </div>
+
+        <div class="tier-grid">
+          <div class="tier-card">
+            <div class="tier-badge">Atelier</div>
+            <div class="tier-name">Natural Diamonds</div>
+            <ul class="tier-features">
+              <li>Natural diamonds, hand-selected</li>
+              <li>Exceptional cut quality, every stone</li>
+              <li>Yellow, white, or rose gold</li>
+              <li>Fully bespoke or collection-based</li>
+              <li>IGI certification on request</li>
+              <li>BIS hallmarked</li>
+            </ul>
+            <a href="#" class="btn-primary btn-enquire" data-page-link="bespoke">Commission Atelier</a>
+          </div>
+
+          <div class="tier-card">
+            <div class="tier-badge">Studio</div>
+            <div class="tier-name">Lab-Grown Diamonds</div>
+            <ul class="tier-features">
+              <li>Lab-grown diamonds, certified or non-certified</li>
+              <li>Same optical and physical properties as mined</li>
+              <li>Exceptional colour and clarity</li>
+              <li>Yellow, white, or rose gold, made-to-order</li>
+              <li>IGI certification on request</li>
+              <li>BIS hallmarked</li>
+            </ul>
+            <a href="#" class="btn-primary btn-enquire" data-page-link="bespoke">Commission Studio</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</div><!-- /page-about -->
+
+
+<!-- ════════════════════════════════════
+     PAGE: BESPOKE / ATELIER
+════════════════════════════════════ -->
+<div id="page-bespoke" class="page">
+
+  <div class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="max-w" style="position:relative;z-index:2;">
+      <p class="subtitle fade-up">Bespoke Atelier</p>
+      <div class="divider" style="margin:16px 0 24px;"></div>
+      <h1 class="display fade-up">Designed Around You.</h1>
+    </div>
+  </div>
+
+  <section>
+    <div class="max-w">
+
+      <div class="fade-up" style="max-width:660px;margin-bottom:80px;">
+        <p>The Altair Atelier is an invitation to co-create. You bring the occasion, the feeling, your vision. We bring eight decades of diamond expertise, a precision manufacturing partner, and an obsession with getting every detail exactly right.</p>
+      </div>
+
+      <!-- Process -->
+      <div class="fade-up" style="margin-bottom:80px;">
+        <p class="subtitle" style="margin-bottom:16px;">The Process</p>
+        <div class="process-steps">
+          <div class="process-step">
+            <span class="step-number">01</span>
+            <div class="step-title">Consultation</div>
+            <p style="font-size:14px;">We begin with a conversation — in person, over WhatsApp, or via video call. Tell us about the occasion, your aesthetic preferences, and what you have in mind.</p>
+          </div>
+          <div class="process-step">
+            <span class="step-number">02</span>
+            <div class="step-title">Design</div>
+            <p style="font-size:14px;">Sketches, reference images, and a full CAD design. We produce a wax or resin mould for your approval before a single gram of gold is used. You see exactly what you are getting before it is made.</p>
+          </div>
+          <div class="process-step">
+            <span class="step-number">03</span>
+            <div class="step-title">Stone Selection</div>
+            <p style="font-size:14px;">We present diamond options matched to your brief, walk you through the 4Cs and our grading rationale, and help you understand what you are looking at before any decision is made.</p>
+          </div>
+          <div class="process-step">
+            <span class="step-number">04</span>
+            <div class="step-title">Creation & Delivery</div>
+            <p style="font-size:14px;">Crafted in our Mumbai workshop. Delivered with full documentation within the agreed timeline.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider-full" style="margin-bottom:80px;"></div>
+
+      <!-- What to expect -->
+      <div class="feature-row fade-up" style="margin-bottom:80px;">
+        <div>
+          <h2 class="section-title" style="margin-bottom:28px;">What to Expect.</h2>
+          <p style="margin-bottom:16px;">Complete transparency on cost — you see the diamond price and the making charge. No mystery. No inflated retail markup.</p>
+          <p style="margin-bottom:16px;">Our hero cuts: oval, round brilliant, radiant, long cushion, pear, marquise, and trilliant. Accent stones include trapezoid, cadillac, and shield cuts.</p>
+          <p style="margin-bottom:40px;">Settings are typically prong, reflecting our preference for designs that let the diamond breathe. Bezel, pavé, and channel settings available on request.</p>
+          <a href="#" class="btn-primary btn-enquire" data-page-link="contact">Start Your Commission</a>
+        </div>
+        <div class="feature-visual" style="overflow:hidden;background:#f5f0eb;">
+          <img src="images/Pink_Trilliant_Ring_Drawing.jpeg" alt="Bespoke design sketch" style="width:100%;height:100%;object-fit:cover;" />
+        </div>
+      </div>
+
+      <div class="divider-full" style="margin-bottom:80px;"></div>
+
+      <!-- ══════════════════════════════════════════════════
+           PLACEHOLDER SECTION — Client Stories / Social Proof
+           Replace the bracketed content below with real client
+           commissions once available (photos, names/initials with
+           permission, and real quotes). Remove this comment block
+           once populated with genuine content.
+      ══════════════════════════════════════════════════ -->
+      <div class="fade-up" style="margin-bottom:40px;">
+        <div style="text-align:center;max-width:600px;margin:0 auto 56px;">
+          <p class="subtitle">Client Stories</p>
+          <div class="divider"></div>
+          <h2 class="section-title" style="margin-top:20px;">From Consultation to Creation.</h2>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;">
+
+          <div style="border:1px solid rgba(98,99,99,0.25);">
+            <div style="aspect-ratio:4/3;background:rgba(21,81,132,0.08);display:flex;align-items:center;justify-content:center;color:rgba(255,252,252,0.3);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;">
+              [ CAD-to-final photo ]
+            </div>
+            <div style="padding:24px;">
+              <p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:18px;line-height:1.6;color:rgba(255,252,252,0.85);margin-bottom:16px;">"[ Client quote placeholder — replace with real testimonial once available. ]"</p>
+              <p style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#a8c0e8;">[ Client Initials ] — [ Piece Name ]</p>
+            </div>
+          </div>
+
+          <div style="border:1px solid rgba(98,99,99,0.25);">
+            <div style="aspect-ratio:4/3;background:rgba(21,81,132,0.08);display:flex;align-items:center;justify-content:center;color:rgba(255,252,252,0.3);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;">
+              [ CAD-to-final photo ]
+            </div>
+            <div style="padding:24px;">
+              <p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:18px;line-height:1.6;color:rgba(255,252,252,0.85);margin-bottom:16px;">"[ Client quote placeholder — replace with real testimonial once available. ]"</p>
+              <p style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#a8c0e8;">[ Client Initials ] — [ Piece Name ]</p>
+            </div>
+          </div>
+
+          <div style="border:1px solid rgba(98,99,99,0.25);">
+            <div style="aspect-ratio:4/3;background:rgba(21,81,132,0.08);display:flex;align-items:center;justify-content:center;color:rgba(255,252,252,0.3);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;">
+              [ CAD-to-final photo ]
+            </div>
+            <div style="padding:24px;">
+              <p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:18px;line-height:1.6;color:rgba(255,252,252,0.85);margin-bottom:16px;">"[ Client quote placeholder — replace with real testimonial once available. ]"</p>
+              <p style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#a8c0e8;">[ Client Initials ] — [ Piece Name ]</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- ══════════════════════ END PLACEHOLDER SECTION ══════════════════════ -->
+
+    </div>
+  </section>
+
+</div><!-- /page-bespoke -->
+
+
+<!-- ════════════════════════════════════
+     PAGE: EDUCATION
+════════════════════════════════════ -->
+<div id="page-education" class="page">
+
+  <div class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="max-w" style="position:relative;z-index:2;">
+      <p class="subtitle fade-up">From Stone to Setting</p>
+      <div class="divider" style="margin:16px 0 24px;"></div>
+      <h1 class="display fade-up">The Altair Guide<br>to Fine Jewellery.</h1>
+    </div>
+  </div>
+
+  <section>
+    <div class="max-w">
+
+      <div class="fade-up" style="max-width:640px;margin-bottom:72px;">
+        <p>We believe every buyer deserves to understand exactly what they are purchasing. This guide distils over eighty years of trade expertise into practical knowledge, so you can make decisions with confidence, not just trust.</p>
+      </div>
+
+      <div class="fade-up">
+
+        <div class="edu-item">
+          <button class="edu-trigger" aria-expanded="false">
+            <span class="edu-trigger-num">01</span>
+            <span class="edu-trigger-text">
+              <span class="edu-trigger-title">The 4Cs — Cut, Colour, Clarity, Carat</span>
+              <span class="edu-trigger-meta">The fundamentals</span>
+            </span>
+            <span class="edu-trigger-icon">+</span>
+          </button>
+          <div class="edu-panel">
+            <p>The 4Cs are the universal language of diamond quality, standardised by the GIA. Understanding all four and how they interact is essential to buying well.</p>
+            <div class="edu-grid">
+              <div class="edu-grid-item">
+                <div class="edu-grid-item-label">Cut</div>
+                <div class="edu-grid-item-value">The most important C. Cut governs brilliance, fire, and scintillation. How a diamond moves in light. A well-cut stone will outperform a larger, poorly-cut one every time.<br><br>Every fancy shape is chosen for the best cut available at its price. What we check for changes with the shape. For an oval or pear, that means minimal to zero bow-tie. The goal stays the same: a stone that performs, not just measures well.</div>
+              </div>
+              <div class="edu-grid-item">
+                <div class="edu-grid-item-label">Colour</div>
+                <div class="edu-grid-item-value">Graded D (colourless) to Z (light yellow). The higher the grade, the less colour the stone carries. For most settings, a near-colourless stone faces up white and is visually indistinguishable from the top grades.</div>
+              </div>
+              <div class="edu-grid-item">
+                <div class="edu-grid-item-label">Clarity</div>
+                <div class="edu-grid-item-value">Graded from Internally Flawless to I3. The practical benchmark: eye-clean. A stone where inclusions are invisible to the unaided eye performs identically to a flawless stone in daily wear.</div>
+              </div>
+              <div class="edu-grid-item">
+                <div class="edu-grid-item-label">Carat</div>
+                <div class="edu-grid-item-value">Weight, not size. Two diamonds of identical carat can look very different depending on cut proportions. Always evaluate spread alongside carat weight.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="edu-item">
+          <button class="edu-trigger" aria-expanded="false">
+            <span class="edu-trigger-num">02</span>
+            <span class="edu-trigger-text">
+              <span class="edu-trigger-title">Shapes We Love</span>
+              <span class="edu-trigger-meta">Eight cuts, illustrated</span>
+            </span>
+            <span class="edu-trigger-icon">+</span>
+          </button>
+          <div class="edu-panel">
+            <p>Every diamond cut carries its own character. These are the cuts we return to most at Altair.</p>
+            <div class="cuts-showcase">
+
+              <!-- ROUND BRILLIANT: circle + 8-fold star facets + table octagon -->
+              <div class="cut-item">
+                <div class="cut-gem">
+                  <img src="images/diamond-round.png" alt="Round brilliant cut diamond" loading="lazy" width="86" height="90" />
+                </div>
+                <div class="cut-name">Round Brilliant</div>
+                <p style="font-size:11px;color:rgba(255,252,252,0.6);margin-top:8px;line-height:1.5;letter-spacing:0.02em;">58 facets engineered for maximum light return. The benchmark against which all other cuts are measured.</p>
+              </div>
+
+              <!-- OVAL: L/W 1.44-1.47, ellipse + table ellipse + 8 kite facets -->
+              <div class="cut-item">
+                <div class="cut-gem">
+                  <img src="images/diamond-oval.png" alt="Oval cut diamond" loading="lazy" width="86" height="90" />
+                </div>
+                <div class="cut-name">Oval</div>
+                <p style="font-size:11px;color:rgba(255,252,252,0.6);margin-top:8px;line-height:1.5;letter-spacing:0.02em;">All the brilliance of a round, elongated. Appears larger than its carat weight. One of our most requested cuts.</p>
+              </div>
+
+              <!-- RADIANT: L/W 1.38-1.43, 8-sided + inner table + step/kite facets -->
+              <div class="cut-item">
+                <div class="cut-gem">
+                  <img src="images/diamond-radiant.png" alt="Radiant cut diamond" loading="lazy" width="86" height="90" />
+                </div>
+                <div class="cut-name">Radiant</div>
+                <p style="font-size:11px;color:rgba(255,252,252,0.6);margin-top:8px;line-height:1.5;letter-spacing:0.02em;">Cropped corners with brilliant faceting. Combines the clean lines of an emerald cut with the fire of a round. Exceptional for fancy yellows.</p>
+              </div>
+
+              <!-- LONG CUSHION: L/W 1.30-1.40, rounded rect + inner table + corner kites -->
+              <div class="cut-item">
+                <div class="cut-gem">
+                  <img src="images/diamond-cushion.png" alt="Long cushion cut diamond" loading="lazy" width="86" height="90" />
+                </div>
+                <div class="cut-name">Long Cushion</div>
+                <p style="font-size:11px;color:rgba(255,252,252,0.6);margin-top:8px;line-height:1.5;letter-spacing:0.02em;">Soft corners, brilliant facets. Romantic without being delicate. Sits beautifully as a centre stone.</p>
+              </div>
+
+              <!-- PEAR: L/W 1.63-1.67, pointed top, rounded bottom, brilliant facets -->
+              <div class="cut-item">
+                <div class="cut-gem">
+                  <img src="images/diamond-pear.png" alt="Pear cut diamond" loading="lazy" width="86" height="90" />
+                </div>
+                <div class="cut-name">Pear</div>
+                <p style="font-size:11px;color:rgba(255,252,252,0.6);margin-top:8px;line-height:1.5;letter-spacing:0.02em;">Pointed at one end, rounded at the other. Directional and distinctive. The point should always face away from the hand when set in a ring.</p>
+              </div>
+
+              <!-- MARQUISE: L/W 1.90-2.10, pointed both ends, brilliant facets -->
+              <div class="cut-item">
+                <div class="cut-gem">
+                  <img src="images/diamond-marquise.png" alt="Marquise cut diamond" loading="lazy" width="86" height="90" />
+                </div>
+                <div class="cut-name">Marquise</div>
+                <p style="font-size:11px;color:rgba(255,252,252,0.6);margin-top:8px;line-height:1.5;letter-spacing:0.02em;">The longest-looking cut relative to carat weight. Sharp at both ends, commanding in a solitaire setting.</p>
+              </div>
+
+              <!-- TRILLIANT: equilateral triangle, 3-fold symmetry facets -->
+              <div class="cut-item">
+                <div class="cut-gem">
+                  <img src="images/diamond-trilliant.png" alt="Trilliant cut diamond" loading="lazy" width="86" height="90" />
+                </div>
+                <div class="cut-name">Trilliant</div>
+                <p style="font-size:11px;color:rgba(255,252,252,0.6);margin-top:8px;line-height:1.5;letter-spacing:0.02em;">Three-sided, brilliant-faceted. Most often used as an accent flanking a centre stone, though striking as a solitaire.</p>
+              </div>
+
+              <!-- ROSE CUT: circle + 12 accurate facets (6 inner from apex + 6 outer to girdle) -->
+              <div class="cut-item">
+                <div class="cut-gem">
+                  <img src="images/diamond-rosecut.png" alt="Rose cut diamond" loading="lazy" width="86" height="90" />
+                </div>
+                <div class="cut-name">Rose Cut</div>
+                <p style="font-size:11px;color:rgba(255,252,252,0.6);margin-top:8px;line-height:1.5;letter-spacing:0.02em;">A flat base and domed top with facets that create a gentle, diffused light. Soft and warm, quite unlike the sharp brilliance of a brilliant cut.</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="edu-item">
+          <button class="edu-trigger" aria-expanded="false">
+            <span class="edu-trigger-num">03</span>
+            <span class="edu-trigger-text">
+              <span class="edu-trigger-title">Natural vs Lab-Grown Diamonds</span>
+              <span class="edu-trigger-meta">An honest comparison</span>
+            </span>
+            <span class="edu-trigger-icon">+</span>
+          </button>
+          <div class="edu-panel">
+            <p>Lab-grown diamonds are physically, chemically, and optically identical to mined diamonds. The only difference is origin and therefore price. Both are graded by the same gemological laboratories on the same 4C criteria.</p>
+            <p style="margin-top:16px;">At Altair, we offer both with full transparency. Our Atelier line uses natural diamonds sourced to the highest standards. Our Studio line uses lab-grown diamonds held to the same quality benchmark, at a fraction of the cost.</p>
+            <p style="margin-top:16px;">The right choice depends on what matters most to you: the geological rarity of a natural stone, or the ability to allocate more budget to cut quality and size with a lab-grown equivalent.</p>
+          </div>
+        </div>
+
+        <div class="edu-item">
+          <button class="edu-trigger" aria-expanded="false">
+            <span class="edu-trigger-num">04</span>
+            <span class="edu-trigger-text">
+              <span class="edu-trigger-title">Certification — GIA, IGI, and What to Look For</span>
+              <span class="edu-trigger-meta">Reading a grading report</span>
+            </span>
+            <span class="edu-trigger-icon">+</span>
+          </button>
+          <div class="edu-panel">
+            <p>A diamond certificate is a third-party, objective grading report.</p>
+            <p style="margin-top:16px;">GIA is the oldest and most conservative grader, often considered the industry standard for natural diamonds. IGI is widely used for lab-grown stones and graded consistently with GIA's standards. At Altair, IGI certification is available on request.</p>
+            <p style="margin-top:16px;">When reviewing a certificate, look closely at the cut grade (for rounds), the clarity plot (the map of inclusions), and fluorescence. Faint to medium fluorescence is generally neutral and can sometimes enhance the appearance of lower-colour stones.</p>
+          </div>
+        </div>
+
+        <div class="edu-item">
+          <button class="edu-trigger" aria-expanded="false">
+            <span class="edu-trigger-num">05</span>
+            <span class="edu-trigger-text">
+              <span class="edu-trigger-title">Setting Styles — How the Metal Shapes the Diamond</span>
+              <span class="edu-trigger-meta">How the metal shapes the stone</span>
+            </span>
+            <span class="edu-trigger-icon">+</span>
+          </button>
+          <div class="edu-panel">
+            <p>The setting holds and presents the diamond. The choice of setting style dramatically affects how a stone looks, how much light it receives, and how the piece wears over time.</p>
+            <div class="setting-grid">
+              <div class="setting-card">
+                <div class="setting-tile"><img src="images/setting-prong.png" alt="Prong setting — four and six prong" /></div>
+                <div class="edu-grid-item-label">Prong</div>
+                <div class="edu-grid-item-value">Maximum light exposure. Classic and versatile. Our default at Altair.</div>
+              </div>
+              <div class="setting-card">
+                <div class="setting-tile"><img src="images/setting-bezel.png" alt="Bezel setting" /></div>
+                <div class="edu-grid-item-label">Bezel</div>
+                <div class="edu-grid-item-value">Metal surrounds the stone completely. Clean, architectural look. More protective. Slightly reduces brilliance.</div>
+              </div>
+              <div class="setting-card">
+                <div class="setting-tile"><img src="images/setting-pave.png" alt="Bezel pavé / micro pavé setting" /></div>
+                <div class="edu-grid-item-label">Pavé</div>
+                <div class="edu-grid-item-value">Small accent diamonds set flush across the band or shoulders. Continuous diamond surface, maximum light from multiple points.</div>
+              </div>
+              <div class="setting-card">
+                <div class="setting-tile"><img src="images/setting-channel.png" alt="Channel setting" /></div>
+                <div class="edu-grid-item-label">Channel</div>
+                <div class="edu-grid-item-value">Stones set between two parallel metal rails. Sleek and secure. No prongs, no snag risk.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="edu-item">
+          <button class="edu-trigger" aria-expanded="false">
+            <span class="edu-trigger-num">06</span>
+            <span class="edu-trigger-text">
+              <span class="edu-trigger-title">Caring for Your Jewellery</span>
+              <span class="edu-trigger-meta">Keeping it brilliant</span>
+            </span>
+            <span class="edu-trigger-icon">+</span>
+          </button>
+          <div class="edu-panel">
+            <p>Diamonds are the hardest natural substance, but settings are not. Routine care ensures your piece retains its brilliance and structural integrity indefinitely.</p>
+            <p style="margin-top:16px;">Clean with warm water, a drop of mild dish soap, and a soft toothbrush. Avoid ultrasonic cleaners for pavé settings. Vibration can loosen smaller stones. Have prongs checked annually by a jeweller.</p>
+            <p style="margin-top:16px;">Store each piece separately in a soft pouch or box to prevent surface contact. Remove before swimming, exercising, or applying perfume. Chlorine and oils are the primary enemies of gold alloys.</p>
+            <p style="margin-top:16px;">All Altair pieces come with a complimentary annual check-up at our Mumbai studio.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="divider-full" style="margin:72px 0;"></div>
+
+      <div class="fade-up" style="text-align:center;">
+        <p class="subtitle">Still have questions?</p>
+        <div class="divider"></div>
+        <h2 class="section-title" style="margin:20px 0;font-size:clamp(24px,3vw,40px);">Our team is here to help.</h2>
+        <a href="#" class="btn-primary btn-enquire" data-page-link="contact">Get in Touch</a>
+      </div>
+
+    </div>
+  </section>
+
+</div><!-- /page-education -->
+
+
+<!-- ════════════════════════════════════
+     PAGE: CONTACT
+════════════════════════════════════ -->
+<div id="page-contact" class="page">
+
+  <div class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="max-w" style="position:relative;z-index:2;">
+      <p class="subtitle fade-up">Get in Touch</p>
+      <div class="divider" style="margin:16px 0 24px;"></div>
+      <h1 class="display fade-up">Begin here.</h1>
+    </div>
+  </div>
+
+  <section>
+    <div class="max-w">
+      <div class="contact-grid fade-up">
+
+        <!-- Form -->
+        <div id="contact-form-wrap">
+          <form id="contact-form" name="enquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+            <input type="hidden" name="form-name" value="enquiry" />
+            <p style="display:none;"><label>Don't fill this out: <input name="bot-field" /></label></p>
+            <div class="form-group">
+              <label class="form-label" for="c-name">Full Name</label>
+              <input class="form-input" type="text" id="c-name" name="full-name" placeholder="Your name" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="c-email">Email</label>
+              <input class="form-input" type="email" id="c-email" name="email" placeholder="your@email.com" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="c-phone">Phone</label>
+              <input class="form-input" type="tel" id="c-phone" name="phone" placeholder="+91 98198 98483" inputmode="numeric" pattern="[0-9+\s]*" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="c-type">I am interested in</label>
+              <select class="form-select" id="c-type" name="interest">
+                <option value="">Select one</option>
+                <option>Bespoke Atelier — Natural Diamond</option>
+                <option>Studio Collection — Lab-Grown</option>
+                <option>Engagement Ring Commission</option>
+                <option>General Enquiry</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="c-message">Tell us more</label>
+              <textarea class="form-textarea" id="c-message" name="message" placeholder="Occasion, preferred cuts, timeline — anything that helps us understand your vision."></textarea>
+            </div>
+            <div id="contact-form-error" style="display:none;color:#e08585;font-size:13px;margin-bottom:16px;">Something went wrong sending your message. Please try again, or reach us directly on WhatsApp.</div>
+            <button type="submit" id="contact-submit-btn" class="btn-primary btn-submit btn-enquire" style="width:100%;cursor:pointer;font-family:inherit;">Send Message</button>
+          </form>
+
+          <div id="contact-form-success" style="display:none;text-align:center;padding:48px 12px;">
+            <div style="width:44px;height:44px;border-radius:50%;border:1px solid var(--stellar-lime);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;">
+              <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L6.5 12.5L17 1.5" stroke="#f7d263" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h3 class="section-title" id="contact-success-heading" style="font-size:26px;margin-bottom:16px;">Thank You.</h3>
+            <p id="contact-success-body" style="max-width:400px;margin:0 auto 14px;color:rgba(255,252,252,0.7);">Your inquiry has been received by the Altair Atelier. We believe fine jewellery begins with a conversation, and our team is already reviewing your vision.</p>
+            <p id="contact-success-next" style="max-width:400px;margin:0 auto;color:rgba(255,252,252,0.7);">Aditya or a member of our founding team will reach out to you via your preferred contact method within 24 hours to begin.</p>
+          </div>
+        </div>
+
+        <!-- Info -->
+        <div>
+          <p class="subtitle" style="margin-bottom:16px;">Visit Us</p>
+
+          <div class="contact-info-item">
+            <div class="contact-info-label">Atelier & Showroom</div>
+            <div class="contact-info-value"><a href="https://maps.app.goo.gl/Gd1SRC26KLHr7nvA8" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,252,252,0.25);transition:border-color 0.2s;">EE8090, Bharat Diamond Bourse<br>BKC, Bandra (E), Mumbai 400051</a></div>
+            <div style="font-size:13px;color:rgba(255,252,252,0.55);margin-top:8px;line-height:1.6;">Bharat Diamond Bourse is a secured facility. Visits are by appointment only — we arrange your gate pass and security clearance in advance, so please book before coming by.</div>
+          </div>
+
+          <div class="contact-info-item">
+            <div class="contact-info-label">Hours</div>
+            <div class="contact-info-value">Monday – Saturday<br>10:00 am – 7:00 pm<br><span style="font-size:13px;color:rgba(255,252,252,0.75);">By appointment only</span></div>
+          </div>
+
+          <div class="contact-info-item">
+            <div class="contact-info-label">WhatsApp</div>
+            <div class="contact-info-value"><a href="https://wa.me/919819898483" target="_blank" rel="noopener" style="color:inherit;">+91 98198 98483</a></div>
+          </div>
+
+          <div class="contact-info-item">
+            <div class="contact-info-label">Email</div>
+            <div class="contact-info-value"><a href="mailto:aditya@altairjewels.in" style="color:inherit;">aditya@altairjewels.in</a></div>
+          </div>
+
+          <div class="contact-info-item">
+            <div class="contact-info-label">Instagram</div>
+            <div class="contact-info-value"><a href="https://www.instagram.com/altair.jewels" target="_blank" rel="noopener" style="color:inherit;">@altair.jewels</a></div>
+          </div>
+
+          <div style="margin-top:48px;padding:32px;border:1px solid rgba(98,99,99,0.2);background:rgba(21,81,132,0.05);">
+            <p class="subtitle" style="margin-bottom:16px;">Response time</p>
+            <p style="font-size:14px;">We respond to all enquiries within 24 hours. For urgent commissions or time-sensitive requests, WhatsApp is the fastest route to our Atelier team.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page-contact -->
+
+
+<!-- ════════════════════════════════════
+     FOOTER
+════════════════════════════════════ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo" style="font-size:24px;">ALTAIR</div>
+      <p>Exceptional diamonds, individually crafted into fine jewellery. Natural and lab-grown pieces from Mumbai's diamond trade, made for the way you live.</p>
+      <p style="margin-top:12px;font-size:11px;letter-spacing:0.1em;">Made for you, made to last.</p>
+    </div>
+
+    <div>
+      <div class="footer-col-title">Explore</div>
+      <ul class="footer-links">
+        <li><a href="#" data-page-link="collections">Creations</a></li>
+        <li><a href="#" data-page-link="bespoke">Bespoke Atelier</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="#" data-page-link="about">Our Story</a></li>
+        <li><a href="#" data-page-link="education">The Guide</a></li>
+        <li><a href="#" data-page-link="contact">Contact</a></li>
+        <li><a href="https://www.instagram.com/altair.jewels" target="_blank" rel="noopener">Instagram</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="footer-col-title">Mumbai Studio</div>
+      <ul class="footer-links" style="gap:8px;">
+        <li><a href="https://maps.app.goo.gl/Gd1SRC26KLHr7nvA8" target="_blank" rel="noopener">EE8090, Bharat Diamond Bourse, BKC, Mumbai 400051</a></li>
+        <li style="font-size:12px;color:rgba(255,252,252,0.4);">By appointment only</li>
+        <li><a href="#">Mon–Sat, 10:00–19:00</a></li>
+        <li><a href="#">aditya@altairjewels.in</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2025 Altair Fine Jewellery · Arda Jewels LLP</p>
+    <p>Crafted in Mumbai</p>
+  </div>
+</footer>
+
+<noscript><style>#page-home,.page{display:block!important}</style></noscript>
+
+<!-- Hidden form for Netlify form detection at build time -->
+<form name="enquiry" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="text" name="full-name" />
+  <input type="email" name="email" />
+  <input type="tel" name="phone" />
+  <select name="interest"></select>
+  <textarea name="message"></textarea>
+  <input name="bot-field" />
+</form>
+
+<script src="js/main.js"></script>  <!-- Floating WhatsApp button -->
+
+<script>
+  (function () {
+    var form = document.getElementById('contact-form');
+    if (!form) return;
+
+    function encode(data) {
+      return Object.keys(data)
+        .map(function (key) { return encodeURIComponent(key) + '=' + encodeURIComponent(data[key]); })
+        .join('&');
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      var errorEl = document.getElementById('contact-form-error');
+      var submitBtn = document.getElementById('contact-submit-btn');
+      errorEl.style.display = 'none';
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+
+      var data = {};
+      new FormData(form).forEach(function (value, key) { data[key] = value; });
+
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encode(data)
+      })
+        .then(function (response) {
+          if (!response.ok) throw new Error('Form submission failed');
+
+          var firstName = (data['full-name'] || '').trim().split(' ')[0];
+          var heading = firstName ? ('Thank You, ' + firstName + '.') : 'Thank You.';
+
+          document.getElementById('contact-success-heading').textContent = heading;
+
+          document.getElementById('contact-form').style.display = 'none';
+          document.getElementById('contact-form-success').style.display = 'block';
+
+          // Fire-and-forget: send the styled confirmation email via our
+          // Netlify Function. This never blocks or affects the on-screen
+          // success state above — if it fails, the visitor still sees
+          // the on-screen thank-you, and the enquiry is still captured
+          // by Netlify Forms as usual.
+          fetch('/.netlify/functions/send-confirmation', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          }).catch(function (err) {
+            console.warn('Confirmation email request failed:', err);
+          });
+        })
+        .catch(function () {
+          errorEl.style.display = 'block';
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Send Message';
+        });
+    });
+  })();
+</script>
+  <a href="https://wa.me/919819898483" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Chat on WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+</body>
+</html>
