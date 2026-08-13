@@ -1,0 +1,19 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/journal"
+public_folder: "/images/journal"
+
+collections:
+  - name: "journal"
+    label: "Journal Posts"
+    folder: "content/journal"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Excerpt", name: "excerpt", widget: "text", hint: "One or two sentences shown on the Journal listing page." }
+      - { label: "Cover Image", name: "image", widget: "image" }
+      - { label: "Body", name: "body", widget: "markdown" }

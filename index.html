@@ -202,6 +202,7 @@
         <li><a href="#" data-page="about">Our Story</a></li>
         <li><a href="#" data-page="bespoke">Atelier</a></li>
         <li><a href="#" data-page="education">The Guide</a></li>
+        <li><a href="#" data-page="journal">Journal</a></li>
         <li><a href="#" data-page="contact" class="nav-cta">Enquire</a></li>
       </ul>
 
@@ -220,6 +221,7 @@
   <a href="#" data-page="about">Our Story</a>
   <a href="#" data-page="bespoke">Atelier</a>
   <a href="#" data-page="education">The Guide</a>
+  <a href="#" data-page="journal">Journal</a>
   <a href="#" data-page="contact" class="nav-mobile-cta">Enquire</a>
 </div>
 
@@ -1619,9 +1621,49 @@ document.addEventListener('keydown', function(e) {
 
 
 <!-- ════════════════════════════════════
+     PAGE: JOURNAL
+════════════════════════════════════ -->
+<div id="page-journal" class="page">
+
+  <div class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="max-w" style="position:relative;z-index:2;">
+      <p class="subtitle fade-up">Notes from the Atelier</p>
+      <div class="divider" style="margin:16px 0 24px;"></div>
+      <h1 class="display fade-up">The Journal.</h1>
+    </div>
+  </div>
+
+  <section>
+    <div class="max-w">
+
+      <!-- Listing view -->
+      <div id="journal-listing">
+        <div id="journal-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:40px;">
+          <p style="grid-column:1/-1;text-align:center;color:rgba(255,252,252,0.5);padding:60px 0;">Loading journal entries…</p>
+        </div>
+      </div>
+
+      <!-- Single post view (hidden until a post is opened) -->
+      <div id="journal-post" style="display:none;max-width:760px;margin:0 auto;">
+        <a href="#" id="journal-back" style="display:inline-block;margin-bottom:32px;font-family:var(--font-sub);font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--stellar-lime);border-bottom:1px solid rgba(247,210,99,0.5);padding-bottom:2px;">← Back to Journal</a>
+        <p id="journal-post-date" style="font-family:var(--font-sub);font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#a8c0e8;margin-bottom:12px;"></p>
+        <h1 id="journal-post-title" class="section-title" style="margin-bottom:28px;"></h1>
+        <img id="journal-post-image" src="" alt="" style="width:100%;border-radius:2px;margin-bottom:32px;display:none;" />
+        <div id="journal-post-body" style="font-size:16px;line-height:1.85;color:rgba(255,252,252,0.82);"></div>
+      </div>
+
+    </div>
+  </section>
+
+</div><!-- /page-journal -->
+
+
+<!-- ════════════════════════════════════
      PAGE: CONTACT
 ════════════════════════════════════ -->
 <div id="page-contact" class="page">
+
 
   <div class="page-hero">
     <div class="page-hero-bg"></div>
@@ -1748,6 +1790,7 @@ document.addEventListener('keydown', function(e) {
       <ul class="footer-links">
         <li><a href="#" data-page-link="about">Our Story</a></li>
         <li><a href="#" data-page-link="education">The Guide</a></li>
+        <li><a href="#" data-page-link="journal">Journal</a></li>
         <li><a href="#" data-page-link="contact">Contact</a></li>
         <li><a href="https://www.instagram.com/altair.jewels" target="_blank" rel="noopener">Instagram</a></li>
       </ul>
@@ -1783,6 +1826,126 @@ document.addEventListener('keydown', function(e) {
 </form>
 
 <script src="js/main.js"></script>  <!-- Floating WhatsApp button -->
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+  (function () {
+    var GH_OWNER = 'aditya25891';
+    var GH_REPO = 'altair-website';
+    var GH_BRANCH = 'main';
+    var CONTENT_PATH = 'content/journal';
+
+    var grid = document.getElementById('journal-grid');
+    var listingEl = document.getElementById('journal-listing');
+    var postEl = document.getElementById('journal-post');
+    var loaded = false;
+    var posts = [];
+
+    function parseFrontmatter(raw) {
+      var match = raw.match(/^---\s*([\s\S]*?)\s*---\s*([\s\S]*)$/);
+      if (!match) return { data: {}, body: raw };
+      var fmText = match[1];
+      var body = match[2];
+      var data = {};
+      fmText.split('\n').forEach(function (line) {
+        var idx = line.indexOf(':');
+        if (idx === -1) return;
+        var key = line.slice(0, idx).trim();
+        var val = line.slice(idx + 1).trim().replace(/^["']|["']$/g, '');
+        data[key] = val;
+      });
+      return { data: data, body: body };
+    }
+
+    function formatDate(iso) {
+      try {
+        var d = new Date(iso);
+        return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      } catch (e) { return ''; }
+    }
+
+    function renderGrid() {
+      if (!posts.length) {
+        grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:rgba(255,252,252,0.5);padding:60px 0;">No journal entries yet — check back soon.</p>';
+        return;
+      }
+      grid.innerHTML = posts.map(function (p, i) {
+        var img = p.data.image ? '<div style="aspect-ratio:4/3;overflow:hidden;margin-bottom:20px;"><img src="' + p.data.image + '" alt="" style="width:100%;height:100%;object-fit:cover;" /></div>' : '';
+        return '<a href="#" class="journal-card" data-idx="' + i + '" style="display:block;text-decoration:none;color:inherit;">' +
+          img +
+          '<p style="font-family:var(--font-sub);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#a8c0e8;margin-bottom:10px;">' + formatDate(p.data.date) + '</p>' +
+          '<h3 style="font-family:\'Cormorant Garamond\',Georgia,serif;font-size:24px;margin-bottom:10px;color:var(--lunar-mist);">' + p.data.title + '</h3>' +
+          '<p style="font-size:14px;color:rgba(255,252,252,0.65);line-height:1.7;">' + (p.data.excerpt || '') + '</p>' +
+          '</a>';
+      }).join('');
+
+      grid.querySelectorAll('.journal-card').forEach(function (card) {
+        card.addEventListener('click', function (e) {
+          e.preventDefault();
+          openPost(posts[parseInt(card.getAttribute('data-idx'), 10)]);
+        });
+      });
+    }
+
+    function openPost(post) {
+      document.getElementById('journal-post-date').textContent = formatDate(post.data.date);
+      document.getElementById('journal-post-title').textContent = post.data.title;
+      var imgEl = document.getElementById('journal-post-image');
+      if (post.data.image) {
+        imgEl.src = post.data.image;
+        imgEl.style.display = 'block';
+      } else {
+        imgEl.style.display = 'none';
+      }
+      document.getElementById('journal-post-body').innerHTML = window.marked ? marked.parse(post.body) : post.body;
+      listingEl.style.display = 'none';
+      postEl.style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+
+    document.getElementById('journal-back').addEventListener('click', function (e) {
+      e.preventDefault();
+      postEl.style.display = 'none';
+      listingEl.style.display = 'block';
+    });
+
+    function loadPosts() {
+      if (loaded) return;
+      loaded = true;
+      var apiUrl = 'https://api.github.com/repos/' + GH_OWNER + '/' + GH_REPO + '/contents/' + CONTENT_PATH + '?ref=' + GH_BRANCH;
+
+      fetch(apiUrl)
+        .then(function (res) { return res.json(); })
+        .then(function (files) {
+          if (!Array.isArray(files)) throw new Error('Unexpected response');
+          var mdFiles = files.filter(function (f) { return f.name.endsWith('.md'); });
+          return Promise.all(mdFiles.map(function (f) {
+            var rawUrl = 'https://raw.githubusercontent.com/' + GH_OWNER + '/' + GH_REPO + '/' + GH_BRANCH + '/' + CONTENT_PATH + '/' + f.name;
+            return fetch(rawUrl).then(function (r) { return r.text(); }).then(parseFrontmatter);
+          }));
+        })
+        .then(function (parsed) {
+          posts = parsed.sort(function (a, b) {
+            return new Date(b.data.date) - new Date(a.data.date);
+          });
+          renderGrid();
+        })
+        .catch(function (err) {
+          console.warn('Journal load failed:', err);
+          grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:rgba(255,252,252,0.5);padding:60px 0;">Unable to load journal entries right now.</p>';
+        });
+    }
+
+    // Load when the Journal nav link is clicked, and also if the page
+    // happens to already be active on load (e.g. direct link in future).
+    document.querySelectorAll('[data-page="journal"], [data-page-link="journal"]').forEach(function (el) {
+      el.addEventListener('click', loadPosts);
+    });
+    if (document.getElementById('page-journal') && document.getElementById('page-journal').classList.contains('active')) {
+      loadPosts();
+    }
+  })();
+</script>
 
 <script>
   (function () {
