@@ -1,7 +1,7 @@
 ---
 title: 80+ Years In Diamonds
 date: 2026-08-17T15:15:00.000+05:30
-excerpt: 80+ Years of experience choosing the best diamonds for buyers
+excerpt: More than 80 years of experience of buying the best diamonds for customers
 image: /images/journal/photo-1-.jpg
 ---
 Altair is eighty years old, even though the name is new.
@@ -14,4 +14,4 @@ The third generation joined in the 1970s. Cutting and polishing had to stop in t
 
 The fourth generation came in through the late 2000s and early 2010s, and set about restarting manufacturing, this time in large polished diamonds, a carat and above. They learned the craft from rough through to final faceting. It is the reason Altair can judge a stone on how it actually performs and not only on what the certificate says.
 
-For eighty years the work was the same. Understand what a buyer needed, then find the diamond that answered it. Altair does that one client at a time now, and the promise has not changed: you will always receive more than you expect, and never anything less.
+For eighty years the work was the same. Understand what a buyer needed, then find the diamond(s) that matched it. Altair does that one client at a time now, and the promise has not changed: you will always receive more than you expect, and never anything less.
