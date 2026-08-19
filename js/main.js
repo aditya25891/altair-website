@@ -173,7 +173,7 @@
           name: 'Viridis Earrings',
           type: 'Earrings',
           desc: 'Emerald pear cuts in a detachable double-layer flower setting. Round diamond centre.',
-          images: ['images/lb-viridis-2.jpg', 'images/lb-viridis-1.png'],
+          images: ['images/lb-viridis-2.jpg', 'images/lb-viridis-2-model.png'],
           specs: [
             { label: 'Emerald Weight', val: '40.62ct' },
             { label: 'Centre Diamond', val: '0.53ct Round' },
