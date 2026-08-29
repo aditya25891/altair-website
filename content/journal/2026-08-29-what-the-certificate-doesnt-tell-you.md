@@ -1,6 +1,6 @@
 ---
 title: What the Certificate Doesn't Tell You
-date: 2026-08-29T11:00:00.000+05:30
+date: 2026-08-29T11:06:00.000+05:30
 excerpt: A certificate tells you what a diamond is. It does not tell you whether
   it is any good for you.
 image: /images/journal/dgr-2141438167-3300x2550.jpg
