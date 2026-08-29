@@ -2,7 +2,7 @@
 title: What the Certificate Doesn't Tell You
 date: 2026-08-29T11:08:00.000+05:30
 excerpt: A certificate tells you what a diamond is. It does not tell you whether
-  it is any good.
+  it's good.
 image: /images/journal/dgr-2141438167-3300x2550.jpg
 ---
 There are two oval cut diamonds on the table in front of you, two carats each. Both have identical colour, clarity, polish, and symmetry on their GIA certificates. One commands a significantly higher price than the other, and if you see them next to each other you will know why immediately.
