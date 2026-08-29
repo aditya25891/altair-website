@@ -1860,12 +1860,28 @@ document.addEventListener('keydown', function(e) {
       var fmText = match[1];
       var body = match[2];
       var data = {};
-      fmText.split('\n').forEach(function (line) {
+      var currentKey = null;
+      var isLiteral = false;
+      fmText.replace(/\r/g, '').split('\n').forEach(function (line) {
+        if (!line.trim()) return;
+        // Indented lines are YAML continuations of the previous key.
+        // Decap wraps any value longer than ~80 chars onto a second line.
+        if (/^\s/.test(line) && currentKey) {
+          data[currentKey] += (data[currentKey] ? (isLiteral ? '\n' : ' ') : '') + line.trim();
+          return;
+        }
         var idx = line.indexOf(':');
         if (idx === -1) return;
-        var key = line.slice(0, idx).trim();
-        var val = line.slice(idx + 1).trim().replace(/^["']|["']$/g, '');
-        data[key] = val;
+        currentKey = line.slice(0, idx).trim();
+        var val = line.slice(idx + 1).trim();
+        // Block scalar markers (>, >-, |, |-) mean the value follows below.
+        if (/^[|>][-+]?$/.test(val)) {
+          isLiteral = val.charAt(0) === '|';
+          data[currentKey] = '';
+        } else {
+          isLiteral = false;
+          data[currentKey] = val.replace(/^["']/, '').replace(/["']$/, '');
+        }
       });
       return { data: data, body: body };
     }
