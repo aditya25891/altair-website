@@ -1094,9 +1094,6 @@ document.addEventListener('keydown', function(e) {
           display: block;
           filter: grayscale(35%) contrast(1.05);
         }
-        @media (max-width: 700px) {
-          .ht-img-box { display: none; }
-        }
         .ht-row.left .ht-content { text-align: right; margin-left: auto; }
         .ht-row.left .ht-text { margin-left: auto; }
         .ht-row.right { direction: ltr; }
@@ -1118,6 +1115,16 @@ document.addEventListener('keydown', function(e) {
           }
           .ht-row.left .ht-text { margin-left: 0; }
           .ht-text { max-width: 100%; }
+          .ht-row .ht-marker,
+          .ht-row .ht-content { grid-row: 1; }
+          .ht-row .ht-img-box,
+          .ht-row.left .ht-img-box {
+            grid-column: 2;
+            grid-row: 2;
+            max-width: 100%;
+            margin: 20px 0 0 0;
+          }
+          .ht-row .ht-img-box.kl-portrait { max-width: 260px; }
         }
       </style>
 
