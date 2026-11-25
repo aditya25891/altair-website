@@ -1333,3 +1333,81 @@ footer {
   .cuts-showcase { grid-template-columns: 1fr; }
   .lb-hero-img { height: 85vw; }
 }
+
+
+/* ─── Contact page: lighter blue, photo hero, ivory form card ─── */
+#page-contact .contact-hero {
+  background: linear-gradient(120deg, #0b3a6f 0%, #155184 55%, #2d6ea8 100%);
+  border-bottom: 1px solid rgba(247,210,99,0.35);
+  min-height: 46vh;
+}
+#page-contact .contact-hero .page-hero-bg {
+  background: radial-gradient(ellipse 55% 80% at 25% 60%, rgba(112,142,200,0.35) 0%, transparent 70%);
+}
+#page-contact .contact-hero-photo {
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  width: 46%;
+  background: url('../images/hero-emerald-styled.png') center 6% / cover no-repeat;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 45%);
+          mask-image: linear-gradient(to right, transparent 0%, #000 45%);
+  opacity: 0.95;
+}
+#page-contact > section {
+  background: linear-gradient(180deg, #0f4577 0%, #0b3868 100%);
+}
+#page-contact #contact-form-wrap {
+  background: #fffcfc;
+  padding: 48px 44px;
+  border-top: 3px solid var(--stellar-lime);
+  box-shadow: 0 24px 60px rgba(2,27,64,0.35);
+  color: #021b40;
+}
+#page-contact .form-label { color: #155184; }
+#page-contact .form-input,
+#page-contact .form-select,
+#page-contact .form-textarea {
+  background-color: #ffffff;
+  border: 1px solid #d5dbe4;
+  color: #021b40;
+}
+#page-contact .form-input:focus,
+#page-contact .form-select:focus,
+#page-contact .form-textarea:focus { border-color: #155184; }
+#page-contact .form-input::placeholder,
+#page-contact .form-textarea::placeholder { color: #9aa5b5; }
+#page-contact .form-select option { background: #ffffff; color: #021b40; }
+#page-contact #contact-submit-btn {
+  background: var(--stellar-lime) !important;
+  color: #021b40 !important;
+  border: 1px solid var(--stellar-lime) !important;
+  font-weight: 700;
+}
+#page-contact #contact-submit-btn:hover {
+  background: #021b40 !important;
+  color: var(--stellar-lime) !important;
+  border-color: #021b40 !important;
+}
+#page-contact #contact-form-error { color: #b3261e !important; }
+#page-contact #contact-form-success p { color: #3b4a60 !important; }
+#page-contact #contact-success-heading {
+  background: none !important;
+  -webkit-text-fill-color: #021b40;
+  color: #021b40;
+}
+#page-contact .contact-info-item { border-bottom-color: rgba(255,252,252,0.18); }
+#page-contact .contact-info-label { color: var(--stellar-lime); }
+#page-contact .contact-info-value,
+#page-contact .contact-info-value a { color: #fffcfc; }
+#page-contact .contact-info-value + div,
+#page-contact .contact-info-item div[style*="font-size:13px"] { color: rgba(255,252,252,0.75) !important; }
+#page-contact .contact-response-box {
+  margin-top: 48px;
+  padding: 32px;
+  border: 1px solid rgba(247,210,99,0.4);
+  background: rgba(255,255,255,0.07);
+}
+@media (max-width: 900px) {
+  #page-contact .contact-hero-photo { width: 62%; opacity: 0.55; }
+  #page-contact #contact-form-wrap { padding: 32px 22px; }
+}
