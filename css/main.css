@@ -1337,8 +1337,8 @@ footer {
 
 /* ─── Contact page: lighter blue, photo hero, ivory form card ─── */
 #page-contact .contact-hero {
-  background: linear-gradient(120deg, #0b3a6f 0%, #155184 55%, #2d6ea8 100%);
-  border-bottom: 1px solid rgba(247,210,99,0.35);
+  background: linear-gradient(120deg, #021b40 0%, #0a3566 50%, #1d5a94 100%);
+  border-bottom: 1px solid rgba(98,99,99,0.2);
   min-height: 46vh;
 }
 #page-contact .contact-hero .page-hero-bg {
@@ -1354,7 +1354,9 @@ footer {
   opacity: 0.95;
 }
 #page-contact > section {
-  background: linear-gradient(180deg, #0f4577 0%, #0b3868 100%);
+  background:
+    radial-gradient(ellipse 70% 55% at 30% 38%, rgba(29,90,148,0.55) 0%, transparent 70%),
+    #021b40;
 }
 #page-contact #contact-form-wrap {
   background: #fffcfc;
@@ -1411,8 +1413,3 @@ footer {
   #page-contact .contact-hero-photo { width: 62%; opacity: 0.55; }
   #page-contact #contact-form-wrap { padding: 32px 22px; }
 }
-
-/* Contact page: nav and footer follow the lighter blue so the page reads as one piece */
-body.on-contact nav { background: #0b3a6f; border-bottom-color: rgba(247,210,99,0.25); }
-body.on-contact footer { background: #0b3868; border-top-color: rgba(247,210,99,0.25); }
-body.on-contact .nav-mobile-menu { background: rgba(11,58,111,0.98); }
