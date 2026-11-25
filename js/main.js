@@ -363,6 +363,9 @@
         window.location.hash = pageId;
       }
 
+      // Contact page uses a lighter blue; let nav and footer follow it
+      document.body.classList.toggle('on-contact', pageId === 'contact');
+
       // Update nav active state
       document.querySelectorAll('[data-page]').forEach(function(a) {
         a.classList.toggle('active', a.dataset.page === pageId);

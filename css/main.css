@@ -1411,3 +1411,8 @@ footer {
   #page-contact .contact-hero-photo { width: 62%; opacity: 0.55; }
   #page-contact #contact-form-wrap { padding: 32px 22px; }
 }
+
+/* Contact page: nav and footer follow the lighter blue so the page reads as one piece */
+body.on-contact nav { background: #0b3a6f; border-bottom-color: rgba(247,210,99,0.25); }
+body.on-contact footer { background: #0b3868; border-top-color: rgba(247,210,99,0.25); }
+body.on-contact .nav-mobile-menu { background: rgba(11,58,111,0.98); }
