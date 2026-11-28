@@ -190,11 +190,11 @@ function buildEmailText({ firstName, interest, message }) {
     'Interested in: ' + interest,
     'Your notes: ' + message,
     '',
-    'Message us on WhatsApp: https://wa.me/919819898483',
+    'Message us on WhatsApp: https://wa.me/917021072913',
     '',
     'Altair Fine Jewellery — Arda Jewels LLP',
     'EE8090, Bharat Diamond Bourse, BKC, Mumbai 400051',
-    'aditya@altairjewels.in · +91 98198 98483',
+    'aditya@altairjewels.in · +91 70210 72913',
   ].join('\n');
 }
 
@@ -265,7 +265,7 @@ function buildEmailHtml({ firstName, interest, message }) {
               <table role="presentation" cellpadding="0" cellspacing="0">
                 <tr>
                   <td style="background-color:#f7d263;">
-                    <a href="https://wa.me/919819898483" style="display:inline-block;padding:14px 28px;font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#021b40;text-decoration:none;">
+                    <a href="https://wa.me/917021072913" style="display:inline-block;padding:14px 28px;font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#021b40;text-decoration:none;">
                       Message Us on WhatsApp
                     </a>
                   </td>
@@ -290,7 +290,7 @@ function buildEmailHtml({ firstName, interest, message }) {
                 EE8090, Bharat Diamond Bourse, BKC, Mumbai 400051
               </p>
               <p style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;line-height:1.7;color:#7e889a;margin:0;">
-                aditya@altairjewels.in &nbsp;·&nbsp; +91 98198 98483
+                aditya@altairjewels.in &nbsp;·&nbsp; +91 70210 72913
               </p>
             </td>
           </tr>
